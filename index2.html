@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Lễ Tốt Nghiệp</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Background dưới cùng */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Container chính */
+        .invite-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+
+            /* Đảm bảo background không tràn ra ngoài */
+        }
+
+        .invite-container>*:not(.background):not(.background-ft) {
+            position: relative;
+            z-index: 2;
+            /* Đảm bảo nằm trên background */
+        }
+
+
+        /* Background chính */
+        /* Background-ft nằm sát dưới cùng */
+        .background-ft {
+            position: absolute;
+            bottom: 0;
+            /* Đảm bảo sát dưới cùng */
+            left: 0;
+            width: 100%;
+            height: auto;
+            /* Đảm bảo không che phủ */
+            max-height: 30%;
+            /* Hạn chế chiều cao tối đa */
+            background: url('backgroundft.png') no-repeat center bottom;
+            background-size: contain;
+            z-index: 0;
+        }
+
+
+        /* Background-ft đè lên trên */
+        .background-ft {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            /* Chiều cao hợp lý */
+            background: url('backgroundft.png') no-repeat center bottom;
+            background-size: contain;
+            /* Hiển thị không bị vỡ hình */
+            z-index: 1;
+        }
+
+
+
+
+
+
+
+        .header img {
+            width: 80px;
+            margin: 10px 0;
+        }
+
+        .title {
+            font-family: 'Comforter Brush', cursive;
+            font-size: 50px;
+            color: #1f3e84;
+            font-weight: normal;
+            margin: 10px 0;
+            transform: rotate(-3deg);
+        }
+
+        .name-banner {
+            display: inline-block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 20px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: 'Dancing Script', cursive;
+            color: #2e3b57;
+            background-image: url('banner.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+            transform: rotateX(10deg);
+            text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            min-width: 150px;
+        }
+
+        .details,
+        .contact,
+        .location {
+            margin-top: 10px;
+            font-size: 1em;
+        }
+
+        .contact strong {
+            color: #d9534f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invite-container">
+        <!-- Background chính -->
+        <div class="background"></div>
+        <!-- Background-ft nằm trên -->
+        <div class="background-ft"></div>
+
+        <div class="header">
+            <img src="nontotnghiep.png" alt="Nón tốt nghiệp" class="grad-cap">
+            <p class="invite-text">Duy Yêu Mỹ Ngọc</p>
+            <img src="logo.png" alt="Logo Đại học Cần Thơ" class="logo">
+    </div>
+
+
+
+</body>
+
+</html>

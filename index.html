@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiệu ứng cổng mở</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .gate-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+        }
+
+        .gate {
+            position: absolute;
+            width: 50vw;
+            height: 100vh;
+            background: #1F5CAA;
+            border: 2px solid #ffffff;
+            transition: transform 2s ease-in-out;
+        }
+
+        .left-gate {
+            left: 0;
+            transform: translateX(0);
+        }
+
+        .right-gate {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        /* Logo chính giữa */
+        .center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; 
+            height: 300px;
+            background: url('logo.png') no-repeat center;
+            background-size: contain;
+            transition: opacity 1s ease-in-out, transform 2s ease-in-out;
+            z-index: 3;
+        }
+
+        /* Hoa văn trung tâm */
+        .ornament {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: url('https://i.imgur.com/JR5M1sU.png') no-repeat center;
+            background-size: cover;
+            transition: opacity 1s ease-in-out, transform 2s ease-in-out;
+            z-index: 3;
+        }
+
+        /* Hình ảnh thư mời toàn màn hình */
+        .invitation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('thiepmoi.png') no-repeat center;
+            background-size: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        /* Hiệu ứng mở cổng */
+        .open .left-gate {
+            transform: translateX(-100%);
+        }
+
+        .open .right-gate {
+            transform: translateX(100%);
+        }
+
+        .open .ornament,
+        .open .center-logo {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .show-invitation {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gate-container">
+    <div class="gate left-gate"></div>
+    <div class="gate right-gate"></div>
+    <div class="center-logo"></div> 
+    <div class="ornament"></div> 
+</div>
+
+<!-- Hình ảnh thư mời full màn hình -->
+<div class="invitation"></div>
+
+<script>
+    setTimeout(() => {
+        // Mở cổng
+        document.querySelector('.gate-container').classList.add('open');
+        
+        setTimeout(() => {
+            // Hiển thị thư mời
+            document.querySelector('.invitation').classList.add('show-invitation');
+
+            setTimeout(() => {
+                // Ẩn thư mời trước khi đóng cổng lại
+                document.querySelector('.invitation').classList.remove('show-invitation');
+
+                setTimeout(() => {
+                    // Đóng cổng lại
+                    document.querySelector('.gate-container').classList.remove('open');
+
+                    setTimeout(() => {
+                        // Chuyển trang sau khi cổng đóng lại
+                        window.location.href = "index2.html";
+                    }, 2000); // Đợi cổng đóng xong mới chuyển trang
+                }, 1000); // Đợi 1 giây trước khi đóng cổng
+            }, 10000); // Giữ thư mời hiển thị trong 10 giây
+        }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
+    }, 2000);
+</script>
+
+
+
+</body>
+</html>
