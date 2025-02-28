@@ -147,27 +147,27 @@
             <img src="nontotnghiep.png" alt="Nón tốt nghiệp" class="grad-cap">
             <p class="invite-text">Duy Yêu Mỹ Ngọc</p>
             <img src="logo.png" alt="Logo Đại học Cần Thơ" class="logo">
-    </div>
-    <iframe src="music.html" allow="autoplay" style="display: none;" id="music-frame"></iframe>
+        </div>
+        <iframe src="music.html" allow="autoplay" style="display: none;" id="music-frame"></iframe>
 
-    <script>
-        function openMusicPlayer() {
-            // Kiểm tra nếu đã mở rồi thì không mở lại
-            if (!sessionStorage.getItem("musicPlayerOpened")) {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                if (localStorage.getItem("musicPlaying") && !localStorage.getItem("musicWindowOpen")) {
+                    openMusicPlayer();
+                }
+            });
+
+            function openMusicPlayer() {
                 let musicWindow = window.open("music.html", "MusicPlayer", "width=300,height=200");
-                sessionStorage.setItem("musicPlayerOpened", "true");
-    
-                // Nếu cửa sổ bị đóng, đặt lại trạng thái
+                localStorage.setItem("musicWindowOpen", "true");
+
                 musicWindow.onbeforeunload = function () {
-                    sessionStorage.removeItem("musicPlayerOpened");
+                    localStorage.removeItem("musicWindowOpen");
                 };
             }
-        }
-    
-        // Gọi hàm khi trang tải
-        openMusicPlayer();
-    </script>
-    
+
+        </script>
+
 
 </body>
 
