@@ -169,32 +169,27 @@
                             document.querySelector('.gate-container').classList.remove('open');
 
                             setTimeout(() => {
-                                loadIndex2(); // Chuyển sang index2 không mất nhạc
+                                // Mở nhạc trong cửa sổ mới trước khi chuyển trang
+                                openMusicPlayer();
+                                window.location.href = "index2.html";
                             }, 2000);
                         }, 1000);
                     }, 15000);
                 }, 2000);
             });
-
-            function loadIndex2() {
-                fetch("index2.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.body.innerHTML = data; // Thay thế nội dung trang
-                        playMusic(); // Giữ nhạc phát tiếp
-                    })
-                    .catch(error => console.error("Lỗi tải index2.html:", error));
-            }
-
-            function playMusic() {
-                let musicFrame = document.createElement("iframe");
-                musicFrame.src = "music.html";
-                musicFrame.style.display = "none";
-                document.body.appendChild(musicFrame);
-            }
         });
-    </script>
 
+        function openMusicPlayer() {
+            let audio = new Audio("nhungayhomqua.mp3"); // Đổi thành đường dẫn đúng của nhạc
+            audio.loop = true;
+            audio.play().catch(error => console.log("Autoplay bị chặn:", error));
+
+            localStorage.setItem("musicPlaying", "true");
+        }
+
+
+
+    </script>
 
 
 </body>
