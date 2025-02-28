@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
 </head>
-
 <body>
     <audio id="background-music" autoplay loop>
         <source src="nhungayhomqua.mp3" type="audio/mpeg">
@@ -15,15 +12,21 @@
     <script>
         var audio = document.getElementById("background-music");
 
-        audio.play().catch(error => {
-            console.log("Autoplay bị chặn, yêu cầu người dùng tương tác.");
+        // Kiểm tra trạng thái phát nhạc khi load lại trang
+        if (localStorage.getItem("musicPlaying") === "true") {
+            audio.play();
+        }
+
+        // Nếu bị chặn autoplay, yêu cầu user click để phát
+        document.addEventListener("click", function () {
+            audio.play();
+            localStorage.setItem("musicPlaying", "true");
         });
 
-        // Giữ nhạc phát ngay cả khi người dùng rời trang
+        // Cập nhật trạng thái nhạc trước khi đóng tab
         window.addEventListener("beforeunload", function () {
-            localStorage.setItem("musicPlaying", "true");
+            localStorage.setItem("musicPlaying", audio.paused ? "false" : "true");
         });
     </script>
 </body>
-
 </html>
