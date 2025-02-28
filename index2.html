@@ -152,13 +152,13 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                if (localStorage.getItem("musicContinue") === "true") {
-                    let musicFrame = document.createElement("iframe");
-                    musicFrame.src = "music.html";
-                    musicFrame.style.display = "none";
-                    document.body.appendChild(musicFrame);
+                if (localStorage.getItem("musicPlaying")) {
+                    let audio = new Audio("nhungayhomqua.mp3");
+                    audio.loop = true;
+                    audio.play();
                 }
             });
+
 
 
             function openMusicPlayer() {

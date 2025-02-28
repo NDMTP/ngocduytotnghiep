@@ -180,16 +180,13 @@
         });
 
         function openMusicPlayer() {
-            if (!localStorage.getItem("musicPlaying")) {
-                localStorage.setItem("musicPlaying", "true");
-                localStorage.setItem("musicContinue", "true"); // Lưu trạng thái tiếp tục phát
-                let musicWindow = window.open("music.html", "MusicPlayer", "width=300,height=200");
+            let audio = new Audio("nhungayhomqua.mp3"); // Đổi thành đường dẫn đúng của nhạc
+            audio.loop = true;
+            audio.play().catch(error => console.log("Autoplay bị chặn:", error));
 
-                musicWindow.onbeforeunload = function () {
-                    localStorage.removeItem("musicWindowOpen");
-                };
-            }
+            localStorage.setItem("musicPlaying", "true");
         }
+
 
 
     </script>
