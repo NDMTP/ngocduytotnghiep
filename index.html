@@ -97,7 +97,7 @@
         .button-image {
             position: absolute;
             bottom: -200px;
-            left: 51%;
+            left: 50%;
             transform: translateX(-50%);
             width: 200px;
             height: 200px;
@@ -171,7 +171,7 @@
                             setTimeout(() => {
                                 // Mở nhạc trong cửa sổ mới trước khi chuyển trang
                                 openMusicPlayer();
-                                // window.location.href = "index2.html";
+                                window.location.href = "index2.html";
                             }, 2000);
                         }, 1000);
                     }, 15000);
@@ -180,14 +180,18 @@
         });
 
         function openMusicPlayer() {
-            let audio = new Audio("nhungayhomqua.mp3"); // Đổi thành đường dẫn đúng của nhạc
-            audio.loop = true;
-            audio.play().catch(error => console.log("Autoplay bị chặn:", error));
+            if (!localStorage.getItem("musicPlaying")) {
+                localStorage.setItem("musicPlaying", "true");
+                let musicWindow = window.open("music.html", "MusicPlayer", "width=300,height=200");
 
-            localStorage.setItem("musicPlaying", "true");
+                // Đảm bảo nhạc tiếp tục phát khi trang mới tải
+                localStorage.setItem("musicWindowOpen", "true");
+
+                musicWindow.onbeforeunload = function () {
+                    localStorage.removeItem("musicWindowOpen");
+                };
+            }
         }
-
-
 
     </script>
 
