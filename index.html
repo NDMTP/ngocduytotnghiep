@@ -124,6 +124,11 @@
             right: 50%;
             transform: translate(50%, -50%);
         }
+
+        /* Ẩn iframe chứa nhạc */
+        #music-frame {
+            display: none;
+        }
     </style>
 </head>
 
@@ -144,6 +149,9 @@
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
 
+    <!-- Iframe để phát nhạc -->
+    <iframe id="music-frame" src="music.html"></iframe>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var button = document.querySelector(".button-image");
@@ -153,17 +161,37 @@
 
                 setTimeout(() => {
                     document.querySelector('.invitation').classList.add('show-invitation');
-                    playMusic();
+
+                    setTimeout(() => {
+                        document.querySelector('.invitation').classList.remove('show-invitation');
+
+                        setTimeout(() => {
+                            document.querySelector('.gate-container').classList.remove('open');
+
+                            setTimeout(() => {
+                                // Mở nhạc trong cửa sổ mới trước khi chuyển trang
+                                openMusicPlayer();
+                                // window.location.href = "index2.html";
+                            }, 2000);
+                        }, 1000);
+                    }, 15000);
                 }, 2000);
             });
         });
 
-        function playMusic() {
-            let audio = new Audio("nhungayhomqua.mp3");
+        function openMusicPlayer() {
+            let audio = new Audio("nhungayhomqua.mp3"); // Đổi thành đường dẫn đúng của nhạc
             audio.loop = true;
             audio.play().catch(error => console.log("Autoplay bị chặn:", error));
+
+            localStorage.setItem("musicPlaying", "true");
         }
+
+
+
     </script>
+
+
 </body>
 
 </html>
