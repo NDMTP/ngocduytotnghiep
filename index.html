@@ -182,16 +182,15 @@
         function openMusicPlayer() {
             if (!localStorage.getItem("musicPlaying")) {
                 localStorage.setItem("musicPlaying", "true");
+                localStorage.setItem("musicContinue", "true"); // Lưu trạng thái tiếp tục phát
                 let musicWindow = window.open("music.html", "MusicPlayer", "width=300,height=200");
-
-                // Đảm bảo nhạc tiếp tục phát khi trang mới tải
-                localStorage.setItem("musicWindowOpen", "true");
 
                 musicWindow.onbeforeunload = function () {
                     localStorage.removeItem("musicWindowOpen");
                 };
             }
         }
+
 
     </script>
 
