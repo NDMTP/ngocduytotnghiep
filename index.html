@@ -186,7 +186,7 @@
                                 window.location.href = "index2.html";
                             }, 2000); // Đợi cổng đóng xong mới chuyển trang
                         }, 1000); // Đợi 1 giây trước khi đóng cổng
-                    }, 10000); // Giữ thư mời hiển thị trong 10 giây
+                    }, 15000); // Giữ thư mời hiển thị trong 10 giây
                 }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
 
                 // Phát nhạc
@@ -203,16 +203,12 @@
         document.addEventListener("DOMContentLoaded", function () {
             var audio = document.getElementById("background-music");
 
-            // Kiểm tra xem nhạc có đang bật trước đó không
+            // Nếu nhạc đang chạy trước đó, tiếp tục phát
             if (localStorage.getItem("musicPlaying") === "true") {
                 audio.play();
             }
 
-            // Xử lý autoplay bị chặn
-            audio.play().catch(() => {
-                console.log("Autoplay bị chặn, yêu cầu người dùng click vào trang...");
-            });
-
+            // Xử lý khi người dùng click để bật nhạc nếu bị chặn
             var playMusic = function () {
                 audio.play().then(() => {
                     console.log("Nhạc bắt đầu phát!");
@@ -224,7 +220,17 @@
             };
 
             document.addEventListener("click", playMusic);
+
+            // Khi chuyển trang, giữ nguyên trạng thái nhạc
+            window.addEventListener("beforeunload", function () {
+                if (!audio.paused) {
+                    localStorage.setItem("musicPlaying", "true");
+                } else {
+                    localStorage.setItem("musicPlaying", "false");
+                }
+            });
         });
+
 
     </script>
 
