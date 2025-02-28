@@ -77,8 +77,12 @@
         }
 
         .invitation2 {
+            text-align: center;
+            padding-left: 50px;
+            padding-right: 50px;
             position: absolute;
             bottom: -100vh;
+            /* Bắt đầu từ dưới màn hình */
             left: 50%;
             transform: translateX(-50%);
             width: 100vw;
@@ -87,12 +91,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 50px;
+            font-size: 40px;
             font-family: 'Dancing Script', cursive;
             color: black;
             opacity: 0;
             transition: bottom 2s ease-in-out, opacity 1s ease-in-out;
         }
+
+        .invitation2.show {
+            bottom: 0;
+            /* Khi hiển thị, trượt lên */
+            opacity: 1;
+        }
+
+
 
 
         .open .left-gate {
@@ -148,6 +160,30 @@
         #music-frame {
             display: none;
         }
+
+        .fade-text span {
+            display: inline-block;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .fade-effect {
+            animation: fadeInOut 3s ease-in-out infinite;
+            /* Lặp vô hạn */
+        }
     </style>
 </head>
 
@@ -167,7 +203,7 @@
 
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
-    <div class="invitation2">Hello World</div>
+    <div class="invitation2">Xin chào</div>
 
 
     <!-- Iframe để phát nhạc -->
@@ -187,13 +223,46 @@
                         document.querySelector('.invitation').classList.remove('show-invitation');
 
                         setTimeout(() => {
-                            document.querySelector('.invitation2').style.bottom = "0";
-                            document.querySelector('.invitation2').style.opacity = "1";
+                            let invitation2 = document.querySelector('.invitation2');
+                            invitation2.innerHTML = "<span class='fade-effect'>Xin chào</span>";
+                            invitation2.classList.add("show");
+
+                            // Danh sách các câu muốn hiển thị
+                            const messages = [
+                                "Bạn biết sắp tới là ngày gì hơm :> ",
+                                "Đó chính là Lễ tốt nghiệp của mình đó ",
+                                "Hi vọng vào ngày hôm đó",
+                                "Bạn dành cho mình một chút thời gian ",
+                                "Tham dự ngày lễ tốt nghiệp của mình,",
+                                "Chụp với mình một tấm hình",
+                                "Để góp phần cho ngày hôm đó của mình thêm dui được hong??",
+                                "Mặc dù không biết như thế nào ",
+                                "Nhưng mà sự xuất hiện của bạn là niềm vui lớn nhất của mình đó !!!",
+                                "Thời gian và địa điểm như ban đầu bạn thấy đó ",
+                                "Chắc bạn quên rồi đúng hong !!!",
+                                "Đây là thiệp mời tui code riêng cho bạn nè !!"
+                            ];
+
+                            let index = 0;
+                            setTimeout(() => {
+                                function showNextMessage() {
+                                    if (index < messages.length) {
+                                        invitation2.innerHTML = `<span class='fade-effect'>${messages[index]}</span>`;
+                                        index++;
+                                        setTimeout(showNextMessage, 3000); // Hiển thị từng câu trong 3 giây
+                                    }
+                                }
+                                showNextMessage();
+                            }, 5000); // Đợi 3 giây sau "Xin chào" rồi bắt đầu hiệu ứng chữ tiếp theo
+
                         }, 1000);
-                    }, 3000); // Hiển thị tấm hình trong 3 giây trước khi biến mất
+                    }, 3000);
                 }, 2000);
             });
         });
+
+
+
 
 
         function openMusicPlayer() {
