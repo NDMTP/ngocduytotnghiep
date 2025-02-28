@@ -101,51 +101,102 @@
         .show-invitation {
             opacity: 1;
         }
+
+        .button-image {
+            position: absolute;
+            bottom: -200px;
+            /* Điều chỉnh vị trí theo nhu cầu */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            /* Điều chỉnh kích thước theo nhu cầu */
+            height: 200px;
+            background: url('nutbam.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .top-left-text,
+        .top-right-text {
+            position: absolute;
+            top: 15%;
+            transform: translateY(-50%);
+            font-size: 60px;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+        }
+
+        .top-left-text {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .top-right-text {
+            right: 50%;
+            transform: translate(50%, -50%);
+        }
     </style>
 </head>
 
 <body>
 
     <div class="gate-container">
-        <div class="gate left-gate"></div>
-        <div class="gate right-gate"></div>
-        <div class="center-logo"></div>
-        <div class="ornament"></div>
+        <div class="gate left-gate">
+            <div class="top-left-text">Thiệp</div>
+        </div>
+        <div class="gate right-gate">
+            <div class="top-right-text">Mời</div>
+        </div>
+        <div class="center-logo">
+            <div class="button-image"></div>
+        </div>
     </div>
+
     <audio id="background-music" loop>
         <source src="nhungayhomqua.mp3" type="audio/mpeg">
     </audio>
-    
+
+
 
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
 
     <script>
-        setTimeout(() => {
-            // Mở cổng
-            document.querySelector('.gate-container').classList.add('open');
+        document.addEventListener("DOMContentLoaded", function () {
+            var audio = document.getElementById("background-music");
+            var button = document.querySelector(".button-image");
 
-            setTimeout(() => {
-                // Hiển thị thư mời
-                document.querySelector('.invitation').classList.add('show-invitation');
+            button.addEventListener("click", function () {
+                // Mở cổng
+                document.querySelector('.gate-container').classList.add('open');
 
                 setTimeout(() => {
-                    // Ẩn thư mời trước khi đóng cổng lại
-                    document.querySelector('.invitation').classList.remove('show-invitation');
+                    // Hiển thị thư mời
+                    document.querySelector('.invitation').classList.add('show-invitation');
 
                     setTimeout(() => {
-                        // Đóng cổng lại
-                        document.querySelector('.gate-container').classList.remove('open');
+                        // Ẩn thư mời trước khi đóng cổng lại
+                        document.querySelector('.invitation').classList.remove('show-invitation');
 
                         setTimeout(() => {
-                            // Chuyển trang sau khi cổng đóng lại
-                            window.location.href = "index2.html";
-                        }, 2000); // Đợi cổng đóng xong mới chuyển trang
-                    }, 1000); // Đợi 1 giây trước khi đóng cổng
-                }, 10000); // Giữ thư mời hiển thị trong 10 giây
-            }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
-        }, 2000);
+                            // Đóng cổng lại
+                            document.querySelector('.gate-container').classList.remove('open');
+
+                            setTimeout(() => {
+                                // Chuyển trang sau khi cổng đóng lại
+                                window.location.href = "index2.html";
+                            }, 2000); // Đợi cổng đóng xong mới chuyển trang
+                        }, 1000); // Đợi 1 giây trước khi đóng cổng
+                    }, 10000); // Giữ thư mời hiển thị trong 10 giây
+                }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
+
+                // Phát nhạc
+                audio.play().catch(() => {
+                    console.log("Autoplay bị chặn, yêu cầu người dùng click vào trang...");
+                });
+            });
+        });
     </script>
+
 
 
     <script>
