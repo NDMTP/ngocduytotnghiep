@@ -12,18 +12,16 @@
     <script>
         var audio = document.getElementById("background-music");
 
-        // Kiểm tra trạng thái phát nhạc khi load lại trang
+        // Lấy trạng thái nhạc từ localStorage
         if (localStorage.getItem("musicPlaying") === "true") {
             audio.play();
         }
 
-        // Nếu bị chặn autoplay, yêu cầu user click để phát
         document.addEventListener("click", function () {
             audio.play();
             localStorage.setItem("musicPlaying", "true");
         });
 
-        // Cập nhật trạng thái nhạc trước khi đóng tab
         window.addEventListener("beforeunload", function () {
             localStorage.setItem("musicPlaying", audio.paused ? "false" : "true");
         });
