@@ -200,7 +200,7 @@
 
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
-    <div class="invitation2">Xin chào</div>
+    <div class="invitation2"></div>
     <canvas id="shatterCanvas"></canvas>
 
 
@@ -209,73 +209,72 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-    var button = document.querySelector(".button-image");
+            var button = document.querySelector(".button-image");
 
-    button.addEventListener("click", function () {
-        document.querySelector('.gate-container').classList.add('open');
-
-        setTimeout(() => {
-            document.querySelector('.invitation').classList.add('show-invitation');
-
-            setTimeout(() => {
-                document.querySelector('.invitation').classList.remove('show-invitation');
+            button.addEventListener("click", function () {
+                document.querySelector('.gate-container').classList.add('open');
 
                 setTimeout(() => {
-                    let invitation2 = document.querySelector('.invitation2');
-                    invitation2.innerHTML = "<span class='fade-effect'>Nguyễn Thanh Tùng</span>";
-                    invitation2.classList.add("show");
+                    document.querySelector('.invitation').classList.add('show-invitation');
 
-                    const messages = [
-                        "Bạn biết sắp tới là ngày gì hơm :> ",
-                        "Đó chính là Lễ tốt nghiệp của mình đó ",
-                        "Hi vọng ngày hôm đó",
-                        "Bạn dành cho mình một chút thời gian ",
-                        "Tham dự ngày lễ tốt nghiệp của mình,",
-                        "Chụp với mình một tấm hình",
-                        "Để góp phần cho ngày hôm đó của mình thêm dui được hong??",
-                        "Mặc dù không biết như thế nào ",
-                        "Nhưng mà sự xuất hiện của bạn là niềm vui lớn nhất của mình đó !!!",
-                        "Thời gian và địa điểm như ban đầu bạn thấy đó ",
-                        "Chắc bạn quên rồi đúng hong !!!",
-                        "Đây là thiệp mời tui code riêng cho bạn nè !!"
-                    ];
-
-                    let index = 0;
                     setTimeout(() => {
-                        function showNextMessage() {
-                            if (index < messages.length) {
-                                invitation2.innerHTML = `<span class='fade-effect'>${messages[index]}</span>`;
-                                index++;
-                                setTimeout(showNextMessage, 3000);
-                            } else {
-                                invitation2.innerHTML = messages[messages.length - 1];
-                                invitation2.classList.remove("fade-effect");
+                        document.querySelector('.invitation').classList.remove('show-invitation');
 
-                                // Đợi 3 giây rồi hiển thị hình ngay
-                                setTimeout(() => {
-                                    document.querySelector('.invitation').classList.add('show-invitation');
+                        setTimeout(() => {
+                            let invitation2 = document.querySelector('.invitation2');
+                            invitation2.classList.add("show");
 
-                                    // Sau khi hiển thị hình, đóng cổng lại
+                            const messages = [
+                                "Xin Chào",
+                                "Bạn biết sắp tới là ngày gì hơm :> ",
+                                "Đó chính là Lễ tốt nghiệp của mình đó ",
+                                "Hi vọng ngày hôm đó",
+                                "Bạn dành cho mình một chút thời gian ",
+                                "Tham dự ngày lễ tốt nghiệp của mình,",
+                                "Chụp với mình một tấm hình",
+                                "Để góp phần cho ngày hôm đó của mình thêm dui được hong??",
+                                "Mặc dù không biết như thế nào ",
+                                "Nhưng mà sự xuất hiện của bạn là niềm vui lớn nhất của mình đó !!!",
+                                "Thời gian và địa điểm như ban đầu bạn thấy ",
+                                "Chắc bạn quên rồi đúng hong !!!",
+                                "Đây là thiệp mời tui code riêng cho bạn nè !!"
+                            ];
+
+                            let index = 0;
+                            function showNextMessage() {
+                                if (index < messages.length) {
+                                    invitation2.innerHTML = `<span class='fade-effect'>${messages[index]}</span>`;
+                                    index++;
+                                    setTimeout(showNextMessage, 3000);
+                                } else {
+                                    invitation2.innerHTML = messages[messages.length - 1];
+                                    invitation2.classList.remove("fade-effect");
+
+                                    // Đợi 3 giây rồi hiển thị hình ngay
                                     setTimeout(() => {
-                                        document.querySelector('.gate-container').classList.remove('open');
+                                        document.querySelector('.invitation').classList.add('show-invitation');
 
-                                        // Ẩn chữ "Thiệp Mời" và nút bấm khi đóng cổng lại
-                                        document.querySelector('.top-left-text').style.display = "none";
-                                        document.querySelector('.top-right-text').style.display = "none";
-                                        document.querySelector('.button-image').style.display = "none";
+                                        // Sau khi hiển thị hình, đóng cổng lại
+                                        setTimeout(() => {
+                                            document.querySelector('.gate-container').classList.remove('open');
 
-                                    }, 5000); // Thời gian đóng cổng
+                                            // Ẩn chữ "Thiệp Mời" và nút bấm khi đóng cổng lại
+                                            document.querySelector('.top-left-text').style.display = "none";
+                                            document.querySelector('.top-right-text').style.display = "none";
+                                            document.querySelector('.button-image').style.display = "none";
 
-                                }, 1000); // Thời gian hiển thị hình trước khi đóng cổng
+                                        }, 10000); // Thời gian đóng cổng
+
+                                    }, 1000); // Thời gian hiển thị hình trước khi đóng cổng
+                                }
                             }
-                        }
-                        showNextMessage();
+
+                            showNextMessage();
+                        }, 1000);
                     }, 5000);
-                }, 1000);
-            }, 5000);
-        }, 2000);
-    });
-});
+                }, 2000);
+            });
+        });
 
 
 
