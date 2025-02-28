@@ -76,6 +76,25 @@
             z-index: 1;
         }
 
+        .invitation2 {
+            position: absolute;
+            bottom: -100vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            font-family: 'Dancing Script', cursive;
+            color: black;
+            opacity: 0;
+            transition: bottom 2s ease-in-out, opacity 1s ease-in-out;
+        }
+
+
         .open .left-gate {
             transform: translateX(-100%);
         }
@@ -148,6 +167,8 @@
 
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
+    <div class="invitation2">Hello World</div>
+
 
     <!-- Iframe để phát nhạc -->
     <iframe id="music-frame" src="music.html"></iframe>
@@ -166,18 +187,14 @@
                         document.querySelector('.invitation').classList.remove('show-invitation');
 
                         setTimeout(() => {
-                            document.querySelector('.gate-container').classList.remove('open');
-
-                            setTimeout(() => {
-                                // Mở nhạc trong cửa sổ mới trước khi chuyển trang
-                                openMusicPlayer();
-                                window.location.href = "index2.html";
-                            }, 2000);
+                            document.querySelector('.invitation2').style.bottom = "0";
+                            document.querySelector('.invitation2').style.opacity = "1";
                         }, 1000);
-                    }, 30000);
+                    }, 3000); // Hiển thị tấm hình trong 3 giây trước khi biến mất
                 }, 2000);
             });
         });
+
 
         function openMusicPlayer() {
             if (!localStorage.getItem("musicPlaying")) {
