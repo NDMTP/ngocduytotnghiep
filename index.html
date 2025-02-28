@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiệu ứng cổng mở</title>
+    <title>Ngọc Duy Tốt Nghiệp</title>
     <style>
         * {
             margin: 0;
@@ -48,12 +49,13 @@
             transform: translateX(0);
         }
 
+        /* Logo chính giữa */
         .center-logo {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px; 
+            width: 300px;
             height: 300px;
             background: url('logo.png') no-repeat center;
             background-size: contain;
@@ -61,32 +63,27 @@
             z-index: 3;
         }
 
-        .ornament {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: url('https://i.imgur.com/JR5M1sU.png') no-repeat center;
-            background-size: cover;
-            transition: opacity 1s ease-in-out, transform 2s ease-in-out;
-            z-index: 3;
-        }
 
+        /* Hình ảnh thư mời toàn màn hình */
         .invitation {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: url('thiepmoi.png') no-repeat center;
-            background-size: cover;
+            background: url('thiepmoi.png') no-repeat center center;
+            background-size: contain;
+            /* Giữ nguyên toàn bộ hình ảnh */
+            background-color: #F7F8F9;
+            /* Lấp đầy phần dư bằng màu trắng */
             opacity: 0;
             transition: opacity 1s ease-in-out;
             z-index: 1;
         }
 
+
+
+        /* Hiệu ứng mở cổng */
         .open .left-gate {
             transform: translateX(-100%);
         }
@@ -106,47 +103,51 @@
         }
     </style>
 </head>
+
 <body>
 
+    <div class="gate-container">
+        <div class="gate left-gate"></div>
+        <div class="gate right-gate"></div>
+        <div class="center-logo"></div>
+        <div class="ornament"></div>
+    </div>
 <audio id="background-music" autoplay loop>
     <source src="nhungayhomqua.mp3" type="audio/mpeg">
 </audio>
 
-<div class="gate-container">
-    <div class="gate left-gate"></div>
-    <div class="gate right-gate"></div>
-    <div class="center-logo"></div> 
-    <div class="ornament"></div> 
-</div>
+    <!-- Hình ảnh thư mời full màn hình -->
+    <div class="invitation"></div>
 
-<div class="invitation"></div>
-
-<script>
-    window.addEventListener('load', function() {
-        var audio = document.getElementById("background-music");
-        audio.play().catch(error => console.log("Trình duyệt chặn autoplay, người dùng cần nhấn vào trang."));
-    });
-
-    setTimeout(() => {
-        document.querySelector('.gate-container').classList.add('open');
-
+    <script>
         setTimeout(() => {
-            document.querySelector('.invitation').classList.add('show-invitation');
+            // Mở cổng
+            document.querySelector('.gate-container').classList.add('open');
 
             setTimeout(() => {
-                document.querySelector('.invitation').classList.remove('show-invitation');
+                // Hiển thị thư mời
+                document.querySelector('.invitation').classList.add('show-invitation');
 
                 setTimeout(() => {
-                    document.querySelector('.gate-container').classList.remove('open');
+                    // Ẩn thư mời trước khi đóng cổng lại
+                    document.querySelector('.invitation').classList.remove('show-invitation');
 
                     setTimeout(() => {
-                        window.location.href = "index2.html";
-                    }, 2000);
-                }, 1000);
-            }, 10000);
+                        // Đóng cổng lại
+                        document.querySelector('.gate-container').classList.remove('open');
+
+                        setTimeout(() => {
+                            // Chuyển trang sau khi cổng đóng lại
+                            window.location.href = "index2.html";
+                        }, 2000); // Đợi cổng đóng xong mới chuyển trang
+                    }, 1000); // Đợi 1 giây trước khi đóng cổng
+                }, 10000); // Giữ thư mời hiển thị trong 10 giây
+            }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
         }, 2000);
-    }, 2000);
-</script>
+    </script>
+
+
 
 </body>
+
 </html>
