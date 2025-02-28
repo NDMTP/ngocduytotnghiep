@@ -49,7 +49,6 @@
             transform: translateX(0);
         }
 
-        /* Logo chính giữa */
         .center-logo {
             position: absolute;
             top: 50%;
@@ -63,8 +62,6 @@
             z-index: 3;
         }
 
-
-        /* Hình ảnh thư mời toàn màn hình */
         .invitation {
             position: absolute;
             top: 0;
@@ -73,17 +70,12 @@
             height: 100vh;
             background: url('thiepmoi.png') no-repeat center center;
             background-size: contain;
-            /* Giữ nguyên toàn bộ hình ảnh */
             background-color: #F7F8F9;
-            /* Lấp đầy phần dư bằng màu trắng */
             opacity: 0;
             transition: opacity 1s ease-in-out;
             z-index: 1;
         }
 
-
-
-        /* Hiệu ứng mở cổng */
         .open .left-gate {
             transform: translateX(-100%);
         }
@@ -105,11 +97,9 @@
         .button-image {
             position: absolute;
             bottom: -200px;
-            /* Điều chỉnh vị trí theo nhu cầu */
             left: 50%;
             transform: translateX(-50%);
             width: 200px;
-            /* Điều chỉnh kích thước theo nhu cầu */
             height: 200px;
             background: url('nutbam.png') no-repeat center;
             background-size: contain;
@@ -134,6 +124,11 @@
             right: 50%;
             transform: translate(50%, -50%);
         }
+
+        /* Ẩn iframe chứa nhạc */
+        #music-frame {
+            display: none;
+        }
     </style>
 </head>
 
@@ -151,87 +146,45 @@
         </div>
     </div>
 
-    <audio id="background-music" loop>
-        <source src="nhungayhomqua.mp3" type="audio/mpeg">
-    </audio>
-
-
-
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
 
+    <!-- Iframe để phát nhạc -->
+    <iframe id="music-frame" src="music.html"></iframe>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var audio = document.getElementById("background-music");
             var button = document.querySelector(".button-image");
 
             button.addEventListener("click", function () {
-                // Mở cổng
                 document.querySelector('.gate-container').classList.add('open');
 
                 setTimeout(() => {
-                    // Hiển thị thư mời
                     document.querySelector('.invitation').classList.add('show-invitation');
 
                     setTimeout(() => {
-                        // Ẩn thư mời trước khi đóng cổng lại
                         document.querySelector('.invitation').classList.remove('show-invitation');
 
                         setTimeout(() => {
-                            // Đóng cổng lại
                             document.querySelector('.gate-container').classList.remove('open');
 
                             setTimeout(() => {
-                                // Chuyển trang sau khi cổng đóng lại
                                 window.location.href = "index2.html";
-                            }, 2000); // Đợi cổng đóng xong mới chuyển trang
-                        }, 1000); // Đợi 1 giây trước khi đóng cổng
-                    }, 15000); // Giữ thư mời hiển thị trong 10 giây
-                }, 2000); // Đợi cổng mở xong mới hiển thị thư mời
+                            }, 2000);
+                        }, 1000);
+                    }, 15000);
+                }, 2000);
 
-                // Phát nhạc
-                audio.play().catch(() => {
-                    console.log("Autoplay bị chặn, yêu cầu người dùng click vào trang...");
-                });
-            });
-        });
-    </script>
-
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var audio = document.getElementById("background-music");
-
-            // Nếu nhạc đang chạy trước đó, tiếp tục phát
-            if (localStorage.getItem("musicPlaying") === "true") {
-                audio.play();
-            }
-
-            // Xử lý khi người dùng click để bật nhạc nếu bị chặn
-            var playMusic = function () {
-                audio.play().then(() => {
-                    console.log("Nhạc bắt đầu phát!");
-                    localStorage.setItem("musicPlaying", "true"); // Lưu trạng thái phát nhạc
-                }).catch(error => {
-                    console.log("Lỗi phát nhạc:", error);
-                });
-                document.removeEventListener("click", playMusic);
-            };
-
-            document.addEventListener("click", playMusic);
-
-            // Khi chuyển trang, giữ nguyên trạng thái nhạc
-            window.addEventListener("beforeunload", function () {
-                if (!audio.paused) {
+                // Kiểm tra nếu nhạc chưa phát thì phát trong iframe
+                if (!localStorage.getItem("musicPlaying")) {
                     localStorage.setItem("musicPlaying", "true");
-                } else {
-                    localStorage.setItem("musicPlaying", "false");
+                    var iframe = document.createElement("iframe");
+                    iframe.style.display = "none";
+                    iframe.src = "music.html"; // Trang phát nhạc
+                    document.body.appendChild(iframe);
                 }
             });
         });
-
-
     </script>
 
 </body>
