@@ -112,9 +112,10 @@
         <div class="center-logo"></div>
         <div class="ornament"></div>
     </div>
-<audio id="background-music" autoplay loop>
-    <source src="nhungayhomqua.mp3" type="audio/mpeg">
-</audio>
+    <audio id="background-music" autoplay loop>
+        <source src="nhungayhomqua.mp3" type="audio/mpeg">
+    </audio>
+
 
     <!-- Hình ảnh thư mời full màn hình -->
     <div class="invitation"></div>
@@ -147,6 +148,29 @@
     </script>
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var audio = document.getElementById("background-music");
+
+            // Tự động phát khi trang tải
+            audio.play().catch(error => {
+                console.log("Autoplay bị chặn, chờ người dùng tương tác...");
+            });
+
+            // Nếu bị chặn, yêu cầu người dùng nhấp vào trang để phát nhạc
+            var playMusic = function () {
+                audio.play().then(() => {
+                    console.log("Nhạc bắt đầu phát!");
+                }).catch(error => {
+                    console.log("Lỗi phát nhạc:", error);
+                });
+                document.removeEventListener("click", playMusic);
+            };
+
+            // Chờ người dùng nhấp vào trang để phát nhạc nếu autoplay bị chặn
+            document.addEventListener("click", playMusic);
+        });
+    </script>
 
 </body>
 
