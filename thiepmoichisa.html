@@ -240,6 +240,9 @@
                                 "Nhưng mà sự xuất hiện của Sa là niềm vui lớn nhất của em đó !!!",
                                 "Thời gian và địa điểm như ban đầu chị thấy á",
                                 "Chắc chị quên rồi đúng hong !!!",
+                                "Lễ tốt nghiệp của em sẽ diễn ra",
+                                "Vào lúc 14:00 ",
+                                "Ngày 13/04/2025 ",
                                 "Đây là thiệp mời em code riêng cho chị nè !!"
                             ];
 
@@ -255,7 +258,9 @@
 
                                     // Đợi 3 giây rồi hiển thị hình ngay
                                     setTimeout(() => {
-                                        document.querySelector('.invitation').classList.add('show-invitation');
+                                        let invitation = document.querySelector('.invitation');
+                                        invitation.style.backgroundImage = "url('nguyenhoangcamsa.png')";
+                                        invitation.classList.add('show-invitation');
 
                                         // Sau khi hiển thị hình, đóng cổng lại
                                         setTimeout(() => {
@@ -265,10 +270,10 @@
                                             document.querySelector('.top-left-text').style.display = "none";
                                             document.querySelector('.top-right-text').style.display = "none";
                                             document.querySelector('.button-image').style.display = "none";
-
                                         }, 10000); // Thời gian đóng cổng
 
                                     }, 1000); // Thời gian hiển thị hình trước khi đóng cổng
+
                                 }
                             }
 
