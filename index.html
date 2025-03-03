@@ -178,7 +178,7 @@
         }
 
         .fade-effect {
-            animation: fadeInOut 3s ease-in-out infinite;
+            animation: fadeInOut 5s ease-in-out infinite;
             /* Lặp vô hạn */
         }
     </style>
@@ -246,7 +246,7 @@
                                 if (index < messages.length) {
                                     invitation2.innerHTML = `<span class='fade-effect'>${messages[index]}</span>`;
                                     index++;
-                                    setTimeout(showNextMessage, 3000);
+                                    setTimeout(showNextMessage, 5000);
                                 } else {
                                     invitation2.innerHTML = messages[messages.length - 1];
                                     invitation2.classList.remove("fade-effect");
