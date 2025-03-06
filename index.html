@@ -233,10 +233,16 @@
                             let invitation2 = document.querySelector('.invitation2');
                             invitation2.classList.add("show");
 
+                            // Tính số ngày còn lại đến 13/04/2025
+                            let ngayToChuc = new Date("2025-04-13");
+                            let homNay = new Date();
+                            let soNgayConLai = Math.ceil((ngayToChuc - homNay) / (1000 * 60 * 60 * 24));
+
                             const messages = [
                                 "Xin Chào",
                                 "Cơm nước gì chưa người đẹp =)) ",
                                 "Bạn biết sắp tới là ngày gì hơm :> ",
+                                `Còn ${soNgayConLai} ngày nữa thôi đó !!!`, // Chèn số ngày còn lại vào đây
                                 "Đó chính là Lễ tốt nghiệp của mình đó ",
                                 "Hi vọng ngày hôm đó",
                                 "Bạn dành cho mình một chút thời gian ",
@@ -252,6 +258,7 @@
                                 "Ngày 13/04/2025 ",
                                 "Đây là thiệp mời tui code riêng cho bạn nè !!"
                             ];
+
 
                             let index = 0;
                             function showNextMessage() {
