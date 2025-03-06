@@ -263,17 +263,24 @@
                                     invitation2.innerHTML = messages[messages.length - 1];
                                     invitation2.classList.remove("fade-effect");
 
+                                    // Đợi 3 giây rồi hiển thị hình ngay
                                     setTimeout(() => {
-                                        document.querySelector('.invitation').classList.add('show-invitation');
+                                        let invitation = document.querySelector('.invitation');
+                                        invitation.style.backgroundImage = "url('thiepmoi.png')";
+                                        invitation.classList.add('show-invitation');
+
+                                        // Sau khi hiển thị hình, đóng cổng lại
                                         setTimeout(() => {
                                             document.querySelector('.gate-container').classList.remove('open');
 
+                                            // Ẩn chữ "Thiệp Mời" và nút bấm khi đóng cổng lại
                                             document.querySelector('.top-left-text').style.display = "none";
                                             document.querySelector('.top-right-text').style.display = "none";
                                             document.querySelector('.button-image').style.display = "none";
+                                        }, 10000); // Thời gian đóng cổng
 
-                                        }, 10000);
-                                    }, 1000);
+                                    }, 1000); // Thời gian hiển thị hình trước khi đóng cổng
+
                                 }
                             }
 
