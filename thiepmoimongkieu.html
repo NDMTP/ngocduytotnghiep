@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngọc Duy Tốt Nghiệp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .gate-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+        }
+
+        .gate {
+            position: absolute;
+            width: 50vw;
+            height: 100vh;
+            background: #1F5CAA;
+            border: 2px solid #ffffff;
+            transition: transform 2s ease-in-out;
+        }
+
+        .left-gate {
+            left: 0;
+            transform: translateX(0);
+        }
+
+        .right-gate {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: url('logo.png') no-repeat center;
+            background-size: contain;
+            transition: opacity 1s ease-in-out, transform 2s ease-in-out;
+            z-index: 3;
+        }
+
+        .invitation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('thiepmoi.png') no-repeat center center;
+            background-size: contain;
+            background-color: #F7F8F9;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .invitation2 {
+            text-align: center;
+            padding-left: 50px;
+            padding-right: 50px;
+            position: absolute;
+            bottom: -100vh;
+            /* Bắt đầu từ dưới màn hình */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-family: 'Dancing Script', cursive;
+            color: black;
+            opacity: 0;
+            transition: bottom 2s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        .invitation2.show {
+            bottom: 0;
+            /* Khi hiển thị, trượt lên */
+            opacity: 1;
+        }
+
+        .open .left-gate {
+            transform: translateX(-100%);
+        }
+
+        .open .right-gate {
+            transform: translateX(100%);
+        }
+
+        .open .ornament,
+        .open .center-logo {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .show-invitation {
+            opacity: 1;
+        }
+
+        .button-image {
+            position: absolute;
+            bottom: -200px;
+            left: 51%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: url('nutbam.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .top-left-text,
+        .top-right-text {
+            position: absolute;
+            top: 15%;
+            transform: translateY(-50%);
+            font-size: 60px;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+        }
+
+        .top-left-text {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .top-right-text {
+            right: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        /* Ẩn iframe chứa nhạc */
+        #music-frame {
+            display: none;
+        }
+
+        .fade-text span {
+            display: inline-block;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .fade-effect {
+            animation: fadeInOut 5s ease-in-out infinite;
+            /* Lặp vô hạn */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gate-container">
+        <div class="gate left-gate">
+            <div class="top-left-text">Thiệp</div>
+        </div>
+        <div class="gate right-gate">
+            <div class="top-right-text">Mời</div>
+        </div>
+        <div class="center-logo">
+            <div class="button-image"></div>
+        </div>
+    </div>
+
+    <!-- Hình ảnh thư mời full màn hình -->
+    <div class="invitation"></div>
+    <div class="invitation2"></div>
+    <canvas id="shatterCanvas"></canvas>
+
+
+    <!-- Iframe để phát nhạc -->
+    <iframe id="music-frame" src="music.html"></iframe>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var button = document.querySelector(".button-image");
+
+            // Chọn bài nhạc ngẫu nhiên
+            let musicList = ["sayhi.mp3","nhungayhomqua.mp3"];
+            let randomMusic = musicList[Math.floor(Math.random() * musicList.length)];
+
+            // Thêm audio để phát nhạc tự động
+            let audio = new Audio(randomMusic);
+            audio.loop = true;
+            audio.play();
+
+            button.addEventListener("click", function () {
+                document.querySelector('.gate-container').classList.add('open');
+
+                setTimeout(() => {
+                    document.querySelector('.invitation').classList.add('show-invitation');
+
+                    setTimeout(() => {
+                        document.querySelector('.invitation').classList.remove('show-invitation');
+
+                        setTimeout(() => {
+                            let invitation2 = document.querySelector('.invitation2');
+                            invitation2.classList.add("show");
+
+                            // Tính số ngày còn lại đến 13/04/2025
+                            let ngayToChuc = new Date("2025-04-13");
+                            let homNay = new Date();
+                            let soNgayConLai = Math.ceil((ngayToChuc - homNay) / (1000 * 60 * 60 * 24));
+
+                            const messages = [
+                                "Hello Mộng Kiều",
+                                "Em biết sắp tới là ngày gì hơm :> ",
+                                `Còn ${soNgayConLai} ngày nữa thôi đó !!!`, 
+                                "Đó chính là lễ tốt nghiệp của anh đóa ",
+                                "Hi vọng ngày hôm đó",
+                                "Em dành cho anh một chút thời gian ",
+                                "Tham dự ngày lễ tốt nghiệp của anh",
+                                "Chụp với anh một tấm hình",
+                                "Để góp phần cho ngày hôm đó của anh thêm dui được hong??",
+                                "Biết đâu hôm đó tự nhiên chụp với anh xong",
+                                "Trai tới xin in4 rồi sao :) ",
+                                "Mặc dù không biết như thế nào ",
+                                "Nhưng mà sự xuất hiện của em là niềm vui lớn nhất của anh đó !!!",
+                                "Thời gian và địa điểm như ban đầu em thấy ",
+                                "Chắc em quên rồi đúng hong !!!",
+                                "Để anh nhắc lại cho em nhớ",
+                                "Lễ tốt nghiệp của anh sẽ diễn ra",
+                                "Vào lúc 14:00 ",
+                                "Ngày 13/04/2025 ",
+                                "Đây là thiệp mời riêng cho em nè !!"
+                            ];
+
+
+                            let index = 0;
+                            function showNextMessage() {
+                                if (index < messages.length) {
+                                    invitation2.innerHTML = `<span class='fade-effect'>${messages[index]}</span>`;
+                                    index++;
+                                    setTimeout(showNextMessage, 5000);
+                                } else {
+                                    invitation2.innerHTML = messages[messages.length - 1];
+                                    invitation2.classList.remove("fade-effect");
+
+                                    // Đợi 3 giây rồi hiển thị hình ngay
+                                    setTimeout(() => {
+                                        let invitation = document.querySelector('.invitation');
+                                        invitation.style.backgroundImage = "url('maimongkieu.png')";
+                                        invitation.classList.add('show-invitation');
+
+                                        // Sau khi hiển thị hình, đóng cổng lại
+                                        setTimeout(() => {
+                                            document.querySelector('.gate-container').classList.remove('open');
+
+                                            // Ẩn chữ "Thiệp Mời" và nút bấm khi đóng cổng lại
+                                            document.querySelector('.top-left-text').style.display = "none";
+                                            document.querySelector('.top-right-text').style.display = "none";
+                                            document.querySelector('.button-image').style.display = "none";
+                                        }, 10000); // Thời gian đóng cổng
+
+                                    }, 1000); // Thời gian hiển thị hình trước khi đóng cổng
+
+                                }
+                            }
+
+                            showNextMessage();
+                        }, 1000);
+                    }, 5000);
+                }, 2000);
+            });
+        });
+
+
+
+        function openMusicPlayer() {
+            if (!localStorage.getItem("musicPlaying")) {
+                localStorage.setItem("musicPlaying", "true");
+                let musicWindow = window.open("music.html", "MusicPlayer", "width=300,height=200");
+
+                // Đảm bảo nhạc tiếp tục phát khi trang mới tải
+                localStorage.setItem("musicWindowOpen", "true");
+
+                musicWindow.onbeforeunload = function () {
+                    localStorage.removeItem("musicWindowOpen");
+                };
+            }
+        }
+    </script>
+</body>
+
+</html>
